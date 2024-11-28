@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click Game</title>
+    <script>
+        var clicks = 0;
+
+        // Function to move the button to a random position
+        function moveTheButt() {
+            var leftPos = Math.random() * (window.innerWidth - 50); // Random horizontal position
+            var topPos = Math.random() * (window.innerHeight - 50); // Random vertical position
+            clicks++; // Increment the click counter
+
+            // Update the button's position and score
+            document.getElementById("divButt").style.left = leftPos + "px";
+            document.getElementById("divButt").style.top = topPos + "px";
+            document.getElementById("count").innerText = "Score: " + clicks;
+        }
+    </script>
+</head>
+<body>
+    <!-- Button container with button -->
+    <div id="divButt" style="position:absolute; left:800px; top:100px;">
+        <button onClick="moveTheButt();">
+            <img src="assets/pngaaa.com-2606039.png" alt="Van Image" style="max-width:50px; max-height:auto;">
+        </button>
+    </div>
+
+    <!-- Score display -->
+    <div id="count" style="position:absolute; top:20px; left:20px; font-size:20px;">
+        Score: 0
+    </div>
+</body>
+</html>
