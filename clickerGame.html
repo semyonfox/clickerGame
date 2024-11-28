@@ -9,8 +9,13 @@
 
         // Function to move the button to a random position
         function moveTheButt() {
-            var leftPos = Math.random() * (window.innerWidth - 50); // Random horizontal position
-            var topPos = Math.random() * (window.innerHeight - 50); // Random vertical position
+            // Get the container's dimensions
+            var container = document.getElementById("clickerBox");
+            var containerWidth = container.clientWidth; // Get width of the container
+            var containerHeight = container.clientHeight; // Get height of the container
+
+            var leftPos = Math.random() * (containerWidth - 50); // Random horizontal position
+            var topPos = Math.random() * (containerHeight - 50); // Random vertical position
             clicks++; // Increment the click counter
 
             // Update the button's position and score
@@ -21,16 +26,18 @@
     </script>
 </head>
 <body>
-    <!-- Button container with button -->
-    <div id="divButt" style="position:absolute; left:800px; top:100px;">
-        <button onClick="moveTheButt();">
-            <img src="assets/pngaaa.com-2606039.png" alt="Van Image" style="max-width:50px; max-height:auto;">
-        </button>
-    </div>
-
     <!-- Score display -->
     <div id="count" style="position:absolute; top:20px; left:20px; font-size:20px;">
         Score: 0
+    </div>
+    <!-- Clicker Box container -->
+    <div id="clickerBox" style="position:relative; max-width:50%; max-height:100%; height:500px; border: 2px solid black;">
+        <!-- Button container with button -->
+        <div id="divButt" style="position:absolute; left:800px; top:100px;">
+            <button onClick="moveTheButt();">
+                <img src="assets/pngaaa.com-2606039.png" alt="Van Image" style="max-width:50px; max-height:auto;">
+            </button>
+        </div>
     </div>
 </body>
 </html>
