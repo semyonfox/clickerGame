@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Button Click Game</title>
     <script>
-        var clicks = 0;
+        var money = 0;  // Initial money
+        var clicks = 0; // Number of clicks
+        var mult = 1;   // Initial multiplier
+        var multiplierCount = 0; // How many multipliers have been purchased
+        var multiplierPrice = 10; // Price of the first multiplier
 
         // Function to move the button to a random position
         function moveTheButt() {
@@ -14,30 +18,79 @@
             var containerWidth = container.clientWidth; // Get width of the container
             var containerHeight = container.clientHeight; // Get height of the container
 
-            var leftPos = Math.random() * (containerWidth - 50); // Random horizontal position
-            var topPos = Math.random() * (containerHeight - 50); // Random vertical position
+            var leftPos = Math.random() * (containerWidth - 60); // Random horizontal position
+            var topPos = Math.random() * (containerHeight - 60); // Random vertical position
             clicks++; // Increment the click counter
 
             // Update the button's position and score
             document.getElementById("divButt").style.left = leftPos + "px";
             document.getElementById("divButt").style.top = topPos + "px";
             document.getElementById("count").innerText = "Score: " + clicks;
+            
+            // Update the money based on the multiplier
+            money += mult;
+            document.getElementById("money").innerText = "Money: " + money;
+        }
+
+        // Function to buy a multiplier
+        function buyMultiplier() {
+            // Check if you have enough money to buy the multiplier
+            if (money >= multiplierPrice) {
+                // Deduct the money for the multiplier
+                money -= multiplierPrice;
+
+                // Increase the multiplier
+                multiplierCount++;
+
+                // Scale the price for the next multiplier
+                multiplierPrice = Math.floor(multiplierPrice * 1.5); // Price increases by 50% after each purchase
+
+                // Update the money and multiplier values
+                document.getElementById("money").innerText = "Money: " + money;
+                document.getElementById("multiplier").innerText = "Multiplier: " + mult;
+                document.getElementById("multiplierPrice").innerText = "Next Multiplier Price: " + multiplierPrice;
+
+                // Increase the multiplier (can adjust scaling factor)
+                mult = 1 + 0.2* Math.log(10); // Each multiplier increases by 0.2
+
+                // Show updated score and money
+                document.getElementById("money").innerText = "Money: " + money;
+            } else {
+                alert("Not enough money to buy multiplier!");
+            }
         }
     </script>
 </head>
 <body>
-    <!-- Score display -->
-    <div id="count" style="position:absolute; top:20px; left:20px; font-size:20px;">
+    <!-- Score and money display -->
+    <div id="count" style="position:absolute; top:20px; left:55%; font-size:20px;">
         Score: 0
     </div>
+    <div id="money" style="position:absolute; top:40px; left:55%; font-size:20px;">
+        Money: 0
+    </div>
+
     <!-- Clicker Box container -->
-    <div id="clickerBox" style="position:relative; max-width:50%; max-height:100%; height:500px; border: 2px solid black;">
+    <div id="clickerBox" style="position:relative; max-width:50%; height:600px; border: 2px solid black;">
         <!-- Button container with button -->
-        <div id="divButt" style="position:absolute; left:800px; top:100px;">
+        <div id="divButt" style="position:absolute; left:0px; top:0px;">
             <button onClick="moveTheButt();">
-                <img src="assets/pngaaa.com-2606039.png" alt="Van Image" style="max-width:50px; max-height:auto;">
+                <img src="assets/pngaaa.com-2606039.png" alt="Van Image" style="max-width:50px; max-height:50px;">
             </button>
         </div>
+    </div>
+
+    <!-- Multiplier upgrade button -->
+    <div id="upgrades" style="position:absolute; top:100px; left:55%;">
+        <button onclick="buyMultiplier();">Buy Multiplier</button>
+    </div>
+
+    <!-- Multiplier and price display -->
+    <div id="multiplier" style="position:absolute; top:150px; left:55%; font-size:20px;">
+        Multiplier: 1
+    </div>
+    <div id="multiplierPrice" style="position:absolute; top:180px; left:55%; font-size:20px;">
+        Next Multiplier Price: 10
     </div>
 </body>
 </html>
